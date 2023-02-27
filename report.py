@@ -3,6 +3,12 @@ from config import Config
 from crm_report import CrmReport
 import csv
 
+"""Realiza extração de informações do RDStation em formato CSV
+
+Keyword arguments: csv, report, relatorio
+"""
+
+
 
 cfg = Config()
 cfg.open()
