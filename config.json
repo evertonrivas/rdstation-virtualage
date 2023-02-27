@@ -1,0 +1,57 @@
+{
+    "log":{
+        "integracao": "crm_integration",
+        "pedidos": "crm_pedidos",
+        "drop_days": 3
+    },
+    "erp": {
+        "grant_type": "password",
+        "client_id": "labellamafiaapiv2",
+        "client_secret": "16061138",
+        "username": "apiv2",
+        "password": "api8107",
+        "representatives": "75413,16803,82466,79759,80008,81975,81973,71793,14336,91171,20,75717,78318,71668,17,5021,82496,91172"
+    },
+    "crm":{
+        "token": "63694376ea8e0d0025b10d53",
+        "default_user": "63694376ea8e0d0025b10d50",
+        "default_contact_origin": "Representante",
+        "default_business_unit": "INDEFINIDO",
+        "customer_pipeline": "638e023e7b3e830015d1b934",
+        "customer_golden_pot": "636943a2ff09f8001c0d6667",
+        "opportunity":{
+            "deal_order_done": "638dfb00f81bcd000f765e83",
+            "custom_field_order": "639b585c44f5fb000c8967a8",
+            "destiny_deal_stage": "638e023e7b3e830015d1b939",
+            "deal_customer_active": "638e023e7b3e830015d1b935",
+            "deal_customer_churn": "638e023e7b3e830015d1b936",
+            "deal_customer_inactive": "638e023e7b3e830015d1b937",
+            "deal_representative": "63b825c5487295000cbd5bf5"
+        },
+        "business":{
+            "taxvat_field_id": "638f366fb858e50015599cf4",
+            "unit_field_id": "638dfed471dc07000b2f7238",
+            "state_field_id": "636a9e87eada620026bcf5ad",
+            "city_field_id": "636a9d9a4e3cd8000fb067e0",
+            "region_field_id": "636a9f35b50296000b70e09d",
+            "origin_contact": "636a9fd6a74df4000ccb98c7"
+        }
+    },
+    "colecao":{
+        "periodo1":"01-01",
+        "inicio_vendas1":"16-01",
+        "fim_vendas1":"03-04",
+
+        "periodo2":"01-04",
+        "inicio_vendas2":"10-04",
+        "fim_vendas2":"26-06",
+
+        "periodo3":"01-07",
+        "inicio_vendas3":"03-07",
+        "fim_vendas3":"29-09",
+        
+        "periodo4":"01-10",
+        "inicio_vendas4":"02-10",
+        "fim_vendas4":"30-12"
+    }
+}
