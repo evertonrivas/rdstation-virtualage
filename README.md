@@ -1,5 +1,10 @@
 # rdstation-virtualage
-Integração entre o sistema Virtual Age e o CRM Rdstation
+
+## Integração entre o sistema Virtual Age e o CRM Rdstation
+
+
+Todas as informações encontram-se no arquivo ``Config.json``
+
 
 Realizar agendamento do script integracao.py apenas 1x no mês (as datas do calendário estão no config caso haja necessidade de alterações). 
 Esse script executa sempre antes de entrar uma nova coleção.
