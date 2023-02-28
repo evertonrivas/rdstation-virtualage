@@ -139,7 +139,7 @@ log_config(_cfg)
 
 #verifica se estah no momento de executar (antes de iniciar uma colecao jah que 'zera' a situaco dos clientes)
 
-hoje = datetime.now().strftime("%d-m%")
+hoje = datetime.now().strftime("%d-%m")
 if hoje==_cfg.get().colecao.periodo1 or hoje==_cfg.get().colecao.periodo2 or hoje==_cfg.get().colecao.periodo3 or hoje==_cfg.get().colecao.periodo4:
 
     #envia o token para a classe do CRM
