@@ -226,7 +226,7 @@ class ERP():
         return None
 
 
-    def order_get_by_customer_today(self,_customer:str)->str | None:
+    def order_get_by_customer_30today(self,_customer:str)->str | None:
         """Metodo que lista todos os pedidos do cliente do dia
         
         Args:

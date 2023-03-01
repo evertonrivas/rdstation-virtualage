@@ -117,13 +117,19 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
             company = _crm.company_get(active.organization.id)
             for org_field in company.organization_custom_fields:
                 if org_field.custom_field_id == _cfg.get().crm.business.taxvat_field_id:
-                    pedido = _erp.order_get_by_customer_today(org_field.value)
-                    if pedido.totalItems > 0:
+                    #obtem os pedidos realizados nos ultimos 30 dias
+                    pedidos = _erp.order_get_by_customer_30today(org_field.value)
+                    #verifica se ha pedidos
+                    if pedidos.totalItems > 0:
+
+                        #havendo pedidos troca a oportunidade de estagio
                         crm_deal = CrmOpportunity(_cfg)
                         crm_deal.set_user(active.organization.user.id)
                         crm_deal.set_deal_stage(_cfg.get().crm.opportunity.destiny_deal_stage)
 
+                        #verifica quantos campos customizados ha na oportunidade
                         if len(active.deal_custom_fields)==1:
+                            #adiciona o campo obrigatorio de comprou calcados
                             for field in _crm.get_opportunities_fields():
                                 if field.id!=active.deal_custom_fields[0].custom_field_id:
                                     if field.required == True:
@@ -138,8 +144,9 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                                         valor=""
                                     crm_deal.add_custom_field(field.id,valor)
 
+                        #realiza ajuste nas oportunidades que nao tem o campo
                         for deal_field in active.deal_custom_fields:
-                            if deal_field.value==None:
+                            if deal_field.value is None:
                                 if deal_field.custom_field.type=="option":
                                     if deal_field.custom_field.label=="Comprou Calçados":
                                         valor = "Não".encode().decode('latin_1')
@@ -150,18 +157,21 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                             else:
                                 valor = deal_field.value
                             crm_deal.add_custom_field(deal_field.custom_field_id,valor)
-                            #print(deal_field.custom_field_id+" - "+valor)
 
+                        #salva os dados da oportunidade
                         if _crm.opportunity_save(crm_deal,active.id)!=False:
                             write_log("Oportunidade "+active.name+" trocada de estagio no CRM para Pedido Feito!",LogType.INFO)
                             print("Oportunidade "+active.name+" trocada de estagio no CRM para Pedido Feito!")
                         else:
                             print("Ocorreu um erro ao tentar salvar a oportunidade "+active.name+"\n\n"+crm_deal.get_json_format())
+            #colocado slép para não gerar problemas no servidor
             sleep(1)
         if opportunity_activ.has_more==False:
             break
         else:
+            #incrementa a pagina
             page_activ += 1
+            #busca novamente os dados com a pagina nova
             opportunity_activ = _crm.opportunity_list(page_activ,_cfg.get().crm.opportunity.deal_customer_active)
 
 
@@ -175,7 +185,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
             company = _crm.company_get(churn.organization.id)
             for org_field in company.organization_custom_fields:
                 if org_field.custom_field_id == _cfg.get().crm.business.taxvat_field_id:
-                    pedido = _erp.order_get_by_customer_today(org_field.value)
+                    pedido = _erp.order_get_by_customer_30today(org_field.value)
                     if pedido.totalItems > 0:
                         crm_deal = CrmOpportunity(_cfg)
                         crm_deal.set_user(churn.organization.user.id)
@@ -197,7 +207,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                                     crm_deal.add_custom_field(field.id,valor)
 
                         for deal_field in churn.deal_custom_fields:
-                            if deal_field.value==None:
+                            if deal_field.value is None:
                                 if deal_field.custom_field.type=="option":
                                     if deal_field.custom_field.label=="Comprou Calçados":
                                         valor = "Não".encode().decode('latin_1')
@@ -232,7 +242,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
             company = _crm.company_get(inact.organization.id)
             for org_field in company.organization_custom_fields:
                 if org_field.custom_field_id == _cfg.get().crm.business.taxvat_field_id:
-                    pedido = _erp.order_get_by_customer_today(org_field.value)
+                    pedido = _erp.order_get_by_customer_30today(org_field.value)
                     if pedido.totalItems > 0 :
                         crm_deal = CrmOpportunity(_cfg)
                         crm_deal.set_user(inact.organization.user.id)
@@ -255,7 +265,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
 
 
                         for deal_field in inact.deal_custom_fields:
-                            if deal_field.value==None:
+                            if deal_field.value is None:
                                 if deal_field.custom_field.type=="option":
                                     if deal_field.custom_field.label=="Comprou Calçados":
                                         valor = "Não".encode().decode('latin_1')
