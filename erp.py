@@ -56,7 +56,7 @@ class ERP():
         if resp.status_code==200:
             self.token = json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
         else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro em ERP.get_token: "+urllib.parse.unquote(resp.text))
         return None
 
 
@@ -158,9 +158,9 @@ class ERP():
             if resp.status_code == 200:
                 return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
             else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro em ERP.order_list_today: "+urllib.parse.unquote(resp.text))
         except requests.exceptions.RequestException as e:
-            print("Erro em ERP.order_list_today")
+            print("Erro em ERP.order_list_today: " +format(e))
             pass
         return None
 
@@ -191,9 +191,9 @@ class ERP():
             if resp.status_code == 200:
                 return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
             else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro em ERP.order_list_by_customer: "+urllib.parse.unquote(resp.text))
         except requests.exceptions.RequestException as e:
-            print("Erro em ERP.order_list_by_customer")
+            print("Erro em ERP.order_list_by_customer: " +format(e))
             pass
         return None
 
@@ -218,9 +218,10 @@ class ERP():
             if resp.status_code == 200:
                 return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
             else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro ERP.order_get_by_number: "+urllib.parse.unquote(resp.text)+"\n\n")
+                print(body)
         except requests.exceptions.RequestException as e:
-            print("Erro em ERP.order_get")
+            print("Erro em ERP.order_get_by_number: " +format(e))
             pass
 
         return None
@@ -249,9 +250,39 @@ class ERP():
             if resp.status_code == 200:
                 return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
             else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro em ERP.order_get_by_customer_today: "+urllib.parse.unquote(resp.text))
         except requests.exceptions.RequestException as e:
-            print("Erro em ERP.order_get_by_customer_today")
+            print("Erro em ERP.order_get_by_customer_today: " +format(e))
+            pass
+        return None
+    
+    
+    def last_order_by_customer(self,_customer:str)->str | object:
+        """Metodo que lista o ultimo pedido do cliente
+        
+        Args:
+            _number(string): numero do pedido.
+            
+        Returns:
+            str | None: Objeto JSON ou Nada
+        """
+        try:
+            body = """{
+                \"filter\":{
+                    \"customerCpfCnpjList\": [\""""+_customer+"""\"],
+                    \"branchCodeList\":[1]
+                },
+                \"order\": \"orderCode\",
+                \"page\": 1,
+                \"pageSize\": 1
+            }"""
+            resp = requests.post("https://api.labellamafia.com.br:9443/api/totvsmoda/sales-order/v2/orders/search",data=body,headers=self.__get_header())
+            if resp.status_code == 200:
+                return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
+            else:
+                print("Erro em ERP.order_get_by_customer_today: "+urllib.parse.unquote(resp.text))
+        except requests.exceptions.RequestException as e:
+            print("Erro em ERP.order_get_by_customer_today: " +format(e))
             pass
         return None
 
@@ -279,9 +310,9 @@ class ERP():
             if resp.status_code == 200:
                 return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
             else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro em ERP.representative_list: "+urllib.parse.unquote(resp.text))
         except requests.exceptions.RequestException as e:
-            print("Erro em ERP.representative_list")
+            print("Erro em ERP.representative_list: "+ +format(e))
             pass
         return None
 
@@ -309,8 +340,8 @@ class ERP():
             if resp.status_code == 200:
                 return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
             else:
-                print("Erro: "+urllib.parse.unquote(resp.text))
+                print("Erro em ERP.find_customer: "+urllib.parse.unquote(resp.text))
         except requests.exceptions.RequestException as e:
-            print("Erro em ERP.find_customer")
+            print("Erro em ERP.find_customer: "+ +format(e))
             pass
         return None

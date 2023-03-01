@@ -188,7 +188,7 @@ class CRM():
         if resp.status_code == 200:
             return json.loads(resp.text,object_hook=lambda d: SimpleNamespace(**d))
         else:
-            print("Erro ao salvar oportunidade: "+_oportunity_id+"\n\n"+_oportunity.get_json_format()+"\n\n"+resp.status_code+"\n\n"+resp.text)
+            print("Erro ao salvar oportunidade: "+_oportunity_id+"\n\n"+_oportunity.get_json_format()+"\n\n"+str(resp.status_code)+"\n\n"+resp.text)
         return False
 
     

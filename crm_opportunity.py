@@ -46,7 +46,7 @@ class CrmOpportunity():
         if len(self.custom_fields_id) > 0:
             fields = []
             for c,v in zip(self.custom_fields_id,self.custom_fields_value):
-                fields.append("""{ \"custom_field_id\": \""""+c+"""\",\"value\": \""""+v+"""\" }""")
+                fields.append("""{ \"custom_field_id\": \""""+c+"""\",\"value\": \""""+str(v).encode().decode('latin_1')+"""\" }""")
             
             ffields = ",".join(fields)       
             mycustom_fields = ',\"deal_custom_fields\": ['+ffields+']'
