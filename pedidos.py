@@ -87,7 +87,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                         pedido = _erp.order_get_by_number(field_crm.value)
                         if pedido!=None:
                             crm_deal = CrmOpportunity(_cfg)
-                            crm_deal.set_deal_stage(_cfg.get().crm.opportunity.destiny_deal_stage)
+                            crm_deal.set_deal_stage(_cfg.get().crm.opportunity.deal_with_order)
                             write_log("Oportunidade "+opportunity.id+" trocada de estagio no CRM",LogType.INFO)
                             _crm.opportunity_save(crm_deal,opportunity.id)
                     else:
@@ -125,7 +125,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                         #havendo pedidos troca a oportunidade de estagio
                         crm_deal = CrmOpportunity(_cfg)
                         crm_deal.set_user(active.organization.user.id)
-                        crm_deal.set_deal_stage(_cfg.get().crm.opportunity.destiny_deal_stage)
+                        crm_deal.set_deal_stage(_cfg.get().crm.opportunity.deal_with_order)
 
                         #verifica quantos campos customizados ha na oportunidade
                         if len(active.deal_custom_fields)==1:
@@ -189,7 +189,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                     if pedido.totalItems > 0:
                         crm_deal = CrmOpportunity(_cfg)
                         crm_deal.set_user(churn.organization.user.id)
-                        crm_deal.set_deal_stage(_cfg.get().crm.opportunity.destiny_deal_stage)
+                        crm_deal.set_deal_stage(_cfg.get().crm.opportunity.deal_with_order)
 
                         if len(churn.deal_custom_fields)==1:
                             for field in _crm.get_opportunities_fields():
@@ -246,7 +246,7 @@ if (hoje>=ini_p1 and hoje<=fim_p1) or (hoje>=ini_p2 and hoje<=fim_p2) or (hoje>=
                     if pedido.totalItems > 0 :
                         crm_deal = CrmOpportunity(_cfg)
                         crm_deal.set_user(inact.organization.user.id)
-                        crm_deal.set_deal_stage(_cfg.get().crm.opportunity.destiny_deal_stage)
+                        crm_deal.set_deal_stage(_cfg.get().crm.opportunity.deal_with_order)
 
                         if len(inact.deal_custom_fields)==1:
                             for field in _crm.get_opportunities_fields():

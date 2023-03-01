@@ -22,7 +22,7 @@
         "opportunity":{
             "deal_order_done": "638dfb00f81bcd000f765e83",
             "custom_field_order": "639b585c44f5fb000c8967a8",
-            "destiny_deal_stage": "638e023e7b3e830015d1b939",
+            "deal_with_order": "638e023e7b3e830015d1b939",
             "deal_customer_active": "638e023e7b3e830015d1b935",
             "deal_customer_churn": "638e023e7b3e830015d1b936",
             "deal_customer_inactive": "638e023e7b3e830015d1b937",

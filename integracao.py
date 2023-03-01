@@ -1,5 +1,4 @@
 from asyncio import exceptions
-from distutils.log import INFO
 import logging 
 from logging.handlers import TimedRotatingFileHandler
 from time import sleep
@@ -117,6 +116,7 @@ def check_customer_deal(_orders)->str | None:
             if c.rstrip()==str(ano_seguinte)+" VERAO 1":
                 comprou_antepenultima = True
     
+    #regra comercial
     if comprou_ultima==True and comprou_penultima==True:
         return "ACTIVE"
     if comprou_ultima==False and comprou_penultima==True:
